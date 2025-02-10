@@ -16,12 +16,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 # 
 COPY . /app
 
-# Exposer port pour Flask
+# Exposer port pour webhook
 EXPOSE ${WEBHOOK_PORT}
 
 # Usager non-root (pour raisons de securite)
-RUN useradd -m flaskuser
-USER flaskuser
+RUN useradd -m webhookuser
+USER webhookuser
 
-# Demarrage Flask
-CMD flask --debug run --host=0.0.0.0 --port=$WEBHOOK_PORT
+# Demarrage du serveur webhook
+CMD python app.py

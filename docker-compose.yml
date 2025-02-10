@@ -1,5 +1,7 @@
+version: '3'
+
 services:
-  flask_app:
+  webhook:
     container_name: emetteur_notifs
     build: .
     env_file:
@@ -7,9 +9,6 @@ services:
     ports:
       - "${WEBHOOK_PORT}:${WEBHOOK_PORT}"
     volumes:
-      - .:/app  # reload dynamique
+      - ./webhooks.log:/app/webhooks.log
     environment:
-      - FLASK_ENV=development  # permet auto-reload pour Flask
-      - FLASK_APP=app.py
-      - WEBHOOK_PORT=${WEBHOOK_PORT}
-    command: flask --debug run --host=0.0.0.0 --port=${WEBHOOK_PORT}
+      - PORT_WEBHOOK=${WEBHOOK_PORT}
