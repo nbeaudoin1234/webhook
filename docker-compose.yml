@@ -1,14 +1,15 @@
-version: "3.8"
-
 services:
   flask_app:
     container_name: emetteur_notifs
     build: .
+    env_file:
+      - .env
     ports:
-      - "8020:8020"
+      - "${WEBHOOK_PORT}:${WEBHOOK_PORT}"
     volumes:
       - .:/app  # reload dynamique
     environment:
       - FLASK_ENV=development  # permet auto-reload pour Flask
       - FLASK_APP=app.py
-    command: flask --debug run --host=0.0.0.0 --port=8020
+      - WEBHOOK_PORT=${WEBHOOK_PORT}
+    command: flask --debug run --host=0.0.0.0 --port=${WEBHOOK_PORT}

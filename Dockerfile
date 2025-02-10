@@ -1,5 +1,5 @@
 # Image python minimale
-FROM docker pull python:3.12-slim-bullseye
+FROM python:3.12-slim-bullseye
 
 # Dossier de travail a l'interieur du conteneur
 WORKDIR /app
@@ -16,12 +16,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 # 
 COPY . /app
 
-# Exposer port 8020 pour Flask
-EXPOSE 8020
+# Exposer port pour Flask
+EXPOSE ${WEBHOOK_PORT}
 
 # Usager non-root (pour raisons de securite)
 RUN useradd -m flaskuser
 USER flaskuser
 
 # Demarrage Flask
-CMD ["flask", "--debug", "run", "--host=0.0.0.0", "--port=8020"]
+CMD flask --debug run --host=0.0.0.0 --port=$WEBHOOK_PORT
