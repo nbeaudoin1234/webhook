@@ -23,10 +23,18 @@ WEBHOOK_PORT=8020
 1. git clone https://github.com/xxxxxx/webhook.git
 
 2. A partir du dossier "webhook", construire l'image (lors de la première exécution)
+
     docker compose build
 
 3. Lancez le service 
-    docker compose up
+
+    docker compose up -d
+
+
+4. Si le service doit etre arreté, faire:
+
+    docker compose down
+
 
 Le webhook sera accessible à l'adresse : `http://localhost:8020`
 
